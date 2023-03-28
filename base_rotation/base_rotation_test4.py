@@ -36,30 +36,31 @@ def cleanup():
 
 # the meat
 try:
-    i = 0
-    for i in range(step_count):
-        if i % 4 == 0:
-            GPIO.output(out4, GPIO.HIGH)
-            GPIO.output(out3, GPIO.LOW)
-            GPIO.output(out2, GPIO.LOW)
-            GPIO.output(out1, GPIO.LOW)
-        elif i % 4 == 1:
-            GPIO.output(out4, GPIO.LOW)
-            GPIO.output(out3, GPIO.LOW)
-            GPIO.output(out2, GPIO.HIGH)
-            GPIO.output(out1, GPIO.LOW)
-        elif i % 4 == 2:
-            GPIO.output(out4, GPIO.LOW)
-            GPIO.output(out3, GPIO.HIGH)
-            GPIO.output(out2, GPIO.LOW)
-            GPIO.output(out1, GPIO.LOW)
-        elif i % 4 == 3:
-            GPIO.output(out4, GPIO.LOW)
-            GPIO.output(out3, GPIO.LOW)
-            GPIO.output(out2, GPIO.LOW)
-            GPIO.output(out1, GPIO.HIGH)
+    for rotation in range(5):
+        i = 0
+        for i in range(step_count):
+            if i % 4 == 0:
+                GPIO.output(out4, GPIO.HIGH)
+                GPIO.output(out3, GPIO.LOW)
+                GPIO.output(out2, GPIO.LOW)
+                GPIO.output(out1, GPIO.LOW)
+            elif i % 4 == 1:
+                GPIO.output(out4, GPIO.LOW)
+                GPIO.output(out3, GPIO.LOW)
+                GPIO.output(out2, GPIO.HIGH)
+                GPIO.output(out1, GPIO.LOW)
+            elif i % 4 == 2:
+                GPIO.output(out4, GPIO.LOW)
+                GPIO.output(out3, GPIO.HIGH)
+                GPIO.output(out2, GPIO.LOW)
+                GPIO.output(out1, GPIO.LOW)
+            elif i % 4 == 3:
+                GPIO.output(out4, GPIO.LOW)
+                GPIO.output(out3, GPIO.LOW)
+                GPIO.output(out2, GPIO.LOW)
+                GPIO.output(out1, GPIO.HIGH)
 
-        time.sleep(step_sleep)
+            time.sleep(step_sleep)
 
 except KeyboardInterrupt:
     cleanup()
