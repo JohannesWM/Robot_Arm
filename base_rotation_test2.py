@@ -1,4 +1,6 @@
 from time import sleep
+import RPi.GPIO as GPIO
+from RpiMotorLib import RpiMotorLib
 try:
 	# Run forever.
 	while True:
