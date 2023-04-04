@@ -36,7 +36,8 @@ def cleanup():
 
 # the meat
 try:
-    for rotation in range(5):
+    # for rotation in range(5):
+    while True:
         i = 0
         for i in range(step_count):
             if i % 4 == 0:
