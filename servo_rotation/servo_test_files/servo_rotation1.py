@@ -2,7 +2,29 @@ import RPi.GPIO as GPIO
 import time
 
 # Set the GPIO mode and pin number
-GPIO.setmode(GPIO.BOARD)
+out1 = 17
+out2 = 18
+out3 = 27
+out4 = 22
+
+# careful lowering this, at some point you run into the mechanical limitation of how quick your motor can move
+step_sleep = 0.002
+
+step_count = 200
+
+# setting up
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(out1, GPIO.OUT)
+GPIO.setup(out2, GPIO.OUT)
+GPIO.setup(out3, GPIO.OUT)
+GPIO.setup(out4, GPIO.OUT)
+
+# initializing
+GPIO.output(out1, GPIO.LOW)
+GPIO.output(out2, GPIO.LOW)
+GPIO.output(out3, GPIO.LOW)
+GPIO.output(out4, GPIO.LOW)
+
 servo_pin = 5
 
 # Set up the GPIO pin for servo control
