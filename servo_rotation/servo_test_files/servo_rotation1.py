@@ -1,30 +1,44 @@
 import RPi.GPIO as GPIO
 import time
 
-servoPIN = 5
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(servoPIN, GPIO.OUT)
+# Set the GPIO mode and pin number
+GPIO.setmode(GPIO.BOARD)
+servo_pin = 5
 
-p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
-p.start(2.5) # Initialization
+# Set up the GPIO pin for servo control
+GPIO.setup(servo_pin, GPIO.OUT)
+
+# Create a PWM instance with a frequency of 50Hz
+pwm = GPIO.PWM(servo_pin, 50)
+
+
+# Function to move the servo to a specified angle
+def move_servo(angle):
+  duty_cycle = (angle / 18) + 2
+  pwm.ChangeDutyCycle(duty_cycle)
+  time.sleep(0.3)  # Adjust the delay as needed for your servo
+
+
+# Main program loop
 try:
+  pwm.start(0)
+
   while True:
-    p.ChangeDutyCycle(5)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(7.5)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(10)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(12.5)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(10)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(7.5)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(5)
-    time.sleep(0.5)
-    p.ChangeDutyCycle(2.5)
-    time.sleep(0.5)
+    # Move the servo from 0 to 180 degrees
+    for angle in range(0, 181, 1):
+      move_servo(angle)
+
+    time.sleep(1)  # Pause for 1 second at 180 degrees
+
+    # Move the servo from 180 to 0 degrees
+    for angle in range(180, -1, -1):
+      move_servo(angle)
+
+    time.sleep(1)  # Pause for 1 second at 0 degrees
+
 except KeyboardInterrupt:
-  p.stop()
-  GPIO.cleanup()
+  pass
+
+# Clean up GPIO settings
+pwm.stop()
+GPIO.cleanup()
